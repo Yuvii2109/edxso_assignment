@@ -1,0 +1,391 @@
+{
+  "name": "Upwork Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dbd4dbbe-4f44-4db6-b155-534e848b13a9",
+              "name": "title",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "1e6372fe-feb6-4f6b-bd21-5d78bf26b4b7",
+              "name": "description",
+              "value": "={{ $json.description }}",
+              "type": "string"
+            },
+            {
+              "id": "f487bf4c-eece-435e-8ac4-39028cb262fe",
+              "name": "url",
+              "value": "={{ $json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "7d870236-fdbb-4382-bafd-9da2cfcd07aa",
+              "name": "relativeDate",
+              "value": "={{ $json.relativeDate }}",
+              "type": "string"
+            },
+            {
+              "id": "53be8665-16bb-42a0-8529-0f3ede70137e",
+              "name": "jobType",
+              "value": "={{ $json.jobType }}",
+              "type": "string"
+            },
+            {
+              "id": "f7d6d248-2193-4684-8406-5b112a145abf",
+              "name": "experienceLevel",
+              "value": "={{ $json.experienceLevel }}",
+              "type": "string"
+            },
+            {
+              "id": "0d08a144-9edf-4745-8489-4350976cb5f0",
+              "name": "Posted",
+              "value": "={{ $json.relativeDate }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        496,
+        144
+      ],
+      "id": "f2693624-128c-4a49-bb96-5caf445f47af",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"score\": \"X/10\",\n  \"priority\": \"High | Medium | Low\",\n  \"reason\": \"One short paragraph explaining why\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        896,
+        384
+      ],
+      "id": "ba107cd8-1695-491b-bb91-2d19000c40cf",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.title }}\n{{ $json.description }}\n{{ $json.url }}\n{{ $json.relativeDate }}\n{{ $json.jobType }}\n{{ $json.experienceLevel }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are an expert Upwork Job Scoring Agent trained to evaluate jobs specifically for Morgan (an automation builder specializing in n8n, AI automations, workflow systems, voice agents, and Twilio/Retell).\n\nYour task is to analyze the job below and score how good it is for Morgan RIGHT NOW based on his current goals:\n\n- get quick wins\n- land fast jobs\n- build portfolio\n- collect testimonials\n- increase Upwork profile history\n- avoid time-wasting clients\n- focus on automation, AI, workflow, systems, voice agents, CRM, Twilio/Retell, n8n-related work\n\n### Output Format JSON (required):\n{\n  \"score\": \"X/10\",\n  \"priority\": \"High | Medium | Low\",\n  \"reason\": \"One short paragraph explaining why\"\n}\n\n### Scoring rules:\nHIGH PRIORITY (8–10/10) if:\n- Job is clearly automation-related (n8n, automation, workflow, AI, chatbot, voice agent, Twilio, Retell, Zapier, Make, API integrations)\n- Client looks easy to work with\n- Budget is reasonable\n- Job can be completed quickly (under 48 hours)\n- Client has history OR high payment verification\n\nMEDIUM PRIORITY (5–7/10) if:\n- Some automation work but unclear scope\n- Job might be longer than ideal\n- Client is new with no history\n- Budget is low but still worth doing for profile building\n\nLOW PRIORITY (1–4/10) if:\n- Not automation related\n- Job looks like a headache\n- Client unclear / bad reviews / very low rate\n- WordPress / graphic design / irrelevant work\n- Long-term dev projects unsuitable for quick wins\n\n### Job Data:\nTitle: {{ $json.title }}\nDescription: {{ $json.description }}\nURL: {{ $json.url }}\nPosted: {{ $json.relativeDate }}\nJob Type: {{ $json.jobType }}\nExperience Level: {{ $json.experienceLevel }}\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        720,
+        144
+      ],
+      "id": "81fbb7cc-fd6b-438e-92c1-96191d792e2b",
+      "name": "Analyse Job"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "app0okhMG47UqfMWI",
+          "mode": "list",
+          "cachedResultName": "Upwork Job Tracker",
+          "cachedResultUrl": "https://airtable.com/app0okhMG47UqfMWI"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblAbWiXqPbhujH7f",
+          "mode": "list",
+          "cachedResultName": "Upwork Jobs",
+          "cachedResultUrl": "https://airtable.com/app0okhMG47UqfMWI/tblAbWiXqPbhujH7f"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Title": "={{ $('Edit Fields').item.json.title }}",
+            "Description": "={{ $('Edit Fields').item.json.description }}",
+            "URL": "={{ $('Edit Fields').item.json.url }}",
+            "Score": "={{ parseInt($json.output.score) }}",
+            "Priority": "={{ $json.output.priority }}",
+            "Reason": "={{ $json.output.reason }}",
+            "Posted": "={{ $now }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "URL",
+              "displayName": "URL",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Score",
+              "displayName": "Score",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Priority",
+              "displayName": "Priority",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "High",
+                  "value": "High"
+                },
+                {
+                  "name": "Medium",
+                  "value": "Medium"
+                },
+                {
+                  "name": "Low",
+                  "value": "Low"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Reason",
+              "displayName": "Reason",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Posted",
+              "displayName": "Posted",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1072,
+        144
+      ],
+      "id": "fb3fd03c-8992-4d74-af59-3d7f0a0588af",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "NmPxZTIfpDMCl4dk",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Upwork Automation",
+        "height": 624,
+        "width": 1328,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "2fc63e82-569f-4eec-ad6d-d46d0ac0b069",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        32,
+        144
+      ],
+      "id": "97a4f5b3-3f1a-4d40-8e8f-36905e59097e",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Helper function to subtract time from \"now\"\nfunction getPastDate(minutesAgo) {\n  const date = new Date();\n  date.setMinutes(date.getMinutes() - minutesAgo);\n  return date.toISOString(); // Returns format: 2024-01-14T10:30:00.000Z\n}\n\nreturn [\n  {\n    json: {\n      title: \"n8n Automation Expert Needed for Workflow Optimization\",\n      description: \"We are looking for an expert in n8n to help us automate our lead generation process. Must know JavaScript, Airtable, and OpenAI API. Budget is flexible for the right person.\",\n      url: \"https://www.upwork.com/jobs/~01example123\",\n      // Changed from \"1 hour ago\" to real timestamp (60 mins ago)\n      posted: getPastDate(60), \n      jobType: \"Fixed Price\",\n      experienceLevel: \"Expert\"\n    }\n  },\n  {\n    json: {\n      title: \"Virtual Assistant for Data Entry\",\n      description: \"Need someone to copy paste data from Excel to Word. Simple job, no experience needed.\",\n      url: \"https://www.upwork.com/jobs/~02example456\",\n      // Changed from \"2 hours ago\" to real timestamp (120 mins ago)\n      posted: getPastDate(120),\n      jobType: \"Hourly\",\n      experienceLevel: \"Entry Level\"\n    }\n  },\n  {\n    json: {\n      title: \"Build a Python Scraper for Real Estate\",\n      description: \"Looking for a Python developer to scrape Zillow using Apify and save data to Google Sheets. Need this done ASAP.\",\n      url: \"https://www.upwork.com/jobs/~03example789\",\n      // Changed from \"30 mins ago\" to real timestamp\n      posted: getPastDate(30),\n      jobType: \"Fixed Price\",\n      experienceLevel: \"Intermediate\"\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        272
+      ],
+      "id": "b2b22d93-c32f-4513-8bfb-c97d1d7ba6ab",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        608,
+        352
+      ],
+      "id": "ee4759da-6375-46cb-a2ba-d879bc665071",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "6udGegdWHRGEBcTl",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Analyse Job",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Analyse Job",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyse Job": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Analyse Job",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "27c2fd7a-09b8-4907-ad5b-1a315dbc9e22",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3f331ede49d562cab4f0af4a75d45adabbbdf025bf92d8ba09d3cc9528d04b3f"
+  },
+  "id": "svustdN-g8JeGh_eN-z4W",
+  "tags": []
+}
