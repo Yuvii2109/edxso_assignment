@@ -77,3 +77,7 @@ To further scale this system, I recommend:
 - [x] **Code:** Exported `workflow.json`
 - [x] **Video:** Recorded demo showing successful execution and data sync
 - [x] **Report:** Documentation completed
+
+## Working Screenshot
+
+![Screenshot (148)](https://drive.google.com/uc?export=view&id=1Y5X9ZNtLpXqufIVCWAFKDtYUBro8atXn)
