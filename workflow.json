@@ -54,8 +54,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        496,
-        144
+        400,
+        320
       ],
       "id": "f2693624-128c-4a49-bb96-5caf445f47af",
       "name": "Edit Fields"
@@ -67,7 +67,7 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        896,
+        1072,
         384
       ],
       "id": "ba107cd8-1695-491b-bb91-2d19000c40cf",
@@ -90,8 +90,8 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        720,
-        144
+        832,
+        160
       ],
       "id": "81fbb7cc-fd6b-438e-92c1-96191d792e2b",
       "name": "Analyse Job"
@@ -226,8 +226,8 @@
       "type": "n8n-nodes-base.airtable",
       "typeVersion": 2.1,
       "position": [
-        1072,
-        144
+        1248,
+        160
       ],
       "id": "fb3fd03c-8992-4d74-af59-3d7f0a0588af",
       "name": "Create a record",
@@ -241,8 +241,8 @@
     {
       "parameters": {
         "content": "## Upwork Automation",
-        "height": 624,
-        "width": 1328,
+        "height": 608,
+        "width": 1440,
         "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
@@ -276,12 +276,12 @@
     },
     {
       "parameters": {
-        "jsCode": "// Helper function to subtract time from \"now\"\nfunction getPastDate(minutesAgo) {\n  const date = new Date();\n  date.setMinutes(date.getMinutes() - minutesAgo);\n  return date.toISOString(); // Returns format: 2024-01-14T10:30:00.000Z\n}\n\nreturn [\n  {\n    json: {\n      title: \"n8n Automation Expert Needed for Workflow Optimization\",\n      description: \"We are looking for an expert in n8n to help us automate our lead generation process. Must know JavaScript, Airtable, and OpenAI API. Budget is flexible for the right person.\",\n      url: \"https://www.upwork.com/jobs/~01example123\",\n      // Changed from \"1 hour ago\" to real timestamp (60 mins ago)\n      posted: getPastDate(60), \n      jobType: \"Fixed Price\",\n      experienceLevel: \"Expert\"\n    }\n  },\n  {\n    json: {\n      title: \"Virtual Assistant for Data Entry\",\n      description: \"Need someone to copy paste data from Excel to Word. Simple job, no experience needed.\",\n      url: \"https://www.upwork.com/jobs/~02example456\",\n      // Changed from \"2 hours ago\" to real timestamp (120 mins ago)\n      posted: getPastDate(120),\n      jobType: \"Hourly\",\n      experienceLevel: \"Entry Level\"\n    }\n  },\n  {\n    json: {\n      title: \"Build a Python Scraper for Real Estate\",\n      description: \"Looking for a Python developer to scrape Zillow using Apify and save data to Google Sheets. Need this done ASAP.\",\n      url: \"https://www.upwork.com/jobs/~03example789\",\n      // Changed from \"30 mins ago\" to real timestamp\n      posted: getPastDate(30),\n      jobType: \"Fixed Price\",\n      experienceLevel: \"Intermediate\"\n    }\n  }\n];"
+        "jsCode": "// Helper function to subtract time from \"now\"\nfunction getPastDate(minutesAgo) {\n  const date = new Date();\n  date.setMinutes(date.getMinutes() - minutesAgo);\n  return date.toISOString(); // Returns format: 2024-01-14T10:30:00.000Z\n}\n\nreturn [\n  // --- ORIGINAL 3 PROFILES ---\n  // {\n  //   json: {\n  //     title: \"n8n Automation Expert Needed for Workflow Optimization\",\n  //     description: \"We are looking for an expert in n8n to help us automate our lead generation process. Must know JavaScript, Airtable, and OpenAI API. Budget is flexible for the right person.\",\n  //     url: \"https://www.upwork.com/jobs/~01example123\",\n  //     posted: getPastDate(60), \n  //     jobType: \"Fixed Price\",\n  //     experienceLevel: \"Expert\"\n  //   }\n  // },\n  // {\n  //   json: {\n  //     title: \"Virtual Assistant for Data Entry\",\n  //     description: \"Need someone to copy paste data from Excel to Word. Simple job, no experience needed.\",\n  //     url: \"https://www.upwork.com/jobs/~02example456\",\n  //     posted: getPastDate(120),\n  //     jobType: \"Hourly\",\n  //     experienceLevel: \"Entry Level\"\n  //   }\n  // },\n  // {\n  //   json: {\n  //     title: \"Build a Python Scraper for Real Estate\",\n  //     description: \"Looking for a Python developer to scrape Zillow using Apify and save data to Google Sheets. Need this done ASAP.\",\n  //     url: \"https://www.upwork.com/jobs/~03example789\",\n  //     posted: getPastDate(30),\n  //     jobType: \"Fixed Price\",\n  //     experienceLevel: \"Intermediate\"\n  //   }\n  // },\n\n  // --- NEW PROFILES FOR TESTING ---\n\n  // TEST 1: SPAM FILTER (Description < 50 chars)\n  // This should be BLOCKED by your new \"If\" node and never reach the AI.\n  {\n    json: {\n      title: \"Quick help needed\",\n      description: \"Need help with excel sheet fix.\",\n      url: \"https://www.upwork.com/jobs/~04spamtest\",\n      posted: getPastDate(5),\n      jobType: \"Fixed Price\",\n      experienceLevel: \"Entry Level\"\n    }\n  },\n\n  // TEST 2: HIGH PRIORITY (Voice AI / Retell)\n  // Matches \"Voice Agent\" and \"Retell\" keywords specifically.\n  {\n    json: {\n      title: \"Retell AI & Twilio Voice Agent Developer\",\n      description: \"We need a developer to build an outbound sales voice agent using Retell AI and Twilio. Must handle latency issues and integrate with HubSpot CRM.\",\n      url: \"https://www.upwork.com/jobs/~05voiceai\",\n      posted: getPastDate(15),\n      jobType: \"Hourly\",\n      experienceLevel: \"Expert\"\n    }\n  },\n\n  // TEST 3: LOW PRIORITY (Irrelevant Field)\n  // Completely outside your niche (Graphic Design).\n  {\n    json: {\n      title: \"Logo Design for Pet Shop\",\n      description: \"Looking for a creative graphic designer to make a cute puppy logo for our new store. Must use Adobe Illustrator and provide vector files.\",\n      url: \"https://www.upwork.com/jobs/~06design\",\n      posted: getPastDate(200),\n      jobType: \"Fixed Price\",\n      experienceLevel: \"Intermediate\"\n    }\n  },\n\n  // TEST 4: MEDIUM PRIORITY (Competitor Tech)\n  // \"Make.com\" is similar to n8n. Good to see if AI scores it as relevant but maybe not a 10/10.\n  {\n    json: {\n      title: \"Migrate Zaps from Zapier to Make.com\",\n      description: \"We are moving our automations from Zapier to Make to save costs. Need someone who understands webhooks and JSON data structures.\",\n      url: \"https://www.upwork.com/jobs/~07make\",\n      posted: getPastDate(45),\n      jobType: \"Hourly\",\n      experienceLevel: \"Intermediate\"\n    }\n  },\n\n  // TEST 5: BAD CLIENT / LOW BUDGET\n  // AI should flag this as \"Low Priority\" due to unrealistic expectations.\n  {\n    json: {\n      title: \"Build fully functional Facebook Clone\",\n      description: \"I need a full social media app like Facebook with chat, video, and feed. Budget is $50. Need it done by tomorrow.\",\n      url: \"https://www.upwork.com/jobs/~08badbudget\",\n      posted: getPastDate(10),\n      jobType: \"Fixed Price\",\n      experienceLevel: \"Expert\"\n    }\n  }\n];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        240,
+        208,
         272
       ],
       "id": "b2b22d93-c32f-4513-8bfb-c97d1d7ba6ab",
@@ -294,8 +294,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        608,
-        352
+        752,
+        384
       ],
       "id": "ee4759da-6375-46cb-a2ba-d879bc665071",
       "name": "Google Gemini Chat Model",
@@ -305,6 +305,39 @@
           "name": "Google Gemini(PaLM) Api account 2"
         }
       }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "9b1459b6-e15e-40ec-85ae-9219c2f1c4ab",
+              "leftValue": "={{ $json.description.length }}",
+              "rightValue": 50,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        576,
+        176
+      ],
+      "id": "4b40c722-fff1-415f-b69b-1d477c21a61e",
+      "name": "If"
     }
   ],
   "pinData": {},
@@ -313,7 +346,7 @@
       "main": [
         [
           {
-            "node": "Analyse Job",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -370,6 +403,22 @@
           {
             "node": "Analyse Job",
             "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a record": {
+      "main": [
+        []
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Analyse Job",
+            "type": "main",
             "index": 0
           }
         ]
