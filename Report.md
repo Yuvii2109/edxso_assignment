@@ -1,7 +1,7 @@
 # Internship Assignment Report: Upwork Automation Workflow
 
-**Candidate Name:** Yuvraj Sachdeva
-**Date:** January 14, 2026
+**Candidate Name:** Yuvraj Sachdeva <br>
+**Date:** January 14, 2026 <br>
 **Subject:** Deployment & Enhancement of AI-Driven Upwork Scraper
 
 ## 1. Executive Summary
