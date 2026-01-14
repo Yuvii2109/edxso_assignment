@@ -16,7 +16,7 @@ During the deployment phase, I encountered and resolved several critical infrast
 * **Apify Scraper Paywall:** The legacy Apify Actor (`neatrat/upwork-job-scraper`) transitioned to a paid subscription model ($25/mo), causing "403 Forbidden" errors.
     * *Fix:* I architected a **Mock Data Module** (JavaScript Code Node) to simulate the API response, allowing full downstream validation without incurring unauthorized costs.
 * **OpenAI Quota Exhaustion:** The provided OpenAI setup failed due to expired free-tier credits ("Insufficient Quota").
-    * *Fix:* **Migrated the AI core to Google Gemini 1.5 Flash**, reducing operational costs to $0 while maintaining high-speed scoring capabilities.
+    * *Fix:* **Migrated the AI core to Google Gemini 2.5 Flash**, reducing operational costs to $0 while maintaining high-speed scoring capabilities.
 * **Airtable Schema Mismatch:** The workflow attempted to write to a non-existent base ("Road to Bali") and clashed with strict data types.
     * *Fix:* Re-mapped the credentials to my personal "Upwork Job Tracker" base and relaxed column constraints (converting "Score" and "Posted" to text) to handle API data variations.
 
