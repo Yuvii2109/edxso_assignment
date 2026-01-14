@@ -26,8 +26,8 @@ To meet the "Production Ready" criteria, I added the following enhancements:
 
 1.  **AI Model Migration (Cost Optimization):**
     Replaced GPT-4o with **Gemini 2.5 Flash**. This reduced execution time significantly and eliminated API costs, making the workflow sustainable for long-term use.
-2.  **High-Priority Alert System:**
-    Implemented logic to filter jobs scored as "High Priority". If triggered, the system sends an instant **Email Notification** (via Gmail node) containing the job title and URL, reducing response time to qualified leads.
+2.  **Pre-Computation Spam Filter (Resource Optimization):**
+    Implemented a logic gate (If Node) upstream of the AI model to filter out low-quality listings with descriptions under 50 characters. This "Fail Fast" mechanism prevents the AI from processing junk data, reducing latency and preserving API quota.
 
 ## 4. Sample Processed Data (Results)
 
@@ -68,7 +68,7 @@ The workflow successfully processed and scored the following leads:
 
 To further scale this system, I recommend:
 * **Vector Database (RAG):** Store successful past proposals in a vector database (like Pinecone) to let the AI draft personalized proposals based on "what worked before."
-* **Slack Integration:** Replace Email alerts with a dedicated Slack channel webhook for team-wide visibility.
+* **Email/Slack Integration:** Add Email/Slack alerts with a dedicated Slack channel webhook for team-wide visibility.
 * **Dynamic Scraper Rotation:** Implement a fallback scraper mechanism to switch between Apify actors if one fails or changes pricing models.
 
 ***
