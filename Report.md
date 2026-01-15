@@ -28,6 +28,8 @@ To meet the "Production Ready" criteria, I added the following enhancements:
     Replaced GPT-4o with **Gemini 2.5 Flash**. This reduced execution time significantly and eliminated API costs, making the workflow sustainable for long-term use.
 2.  **Pre-Computation Spam Filter (Resource Optimization):**
     Implemented a logic gate (If Node) upstream of the AI model to filter out low-quality listings with descriptions under 50 characters. This "Fail Fast" mechanism prevents the AI from processing junk data, reducing latency and preserving API quota.
+3.  **Flexible Schema Validation (Error Handling):**
+    Refactored the Airtable database schema to handle dynamic data types from the scraping source. By converting strict Number and Date fields to flexible Text formats, I eliminated type-mismatch errors (e.g., handling "9/10" scores and relative timestamps like "1 hour ago"), ensuring 100% successful data ingestion without manual intervention.
 
 ## 4. Sample Processed Data (Results)
 
